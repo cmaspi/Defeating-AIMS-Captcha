@@ -1,3 +1,6 @@
 images/*
 character.npy
 logo.png
+temp.ipynb
+test.png
+*.pyc

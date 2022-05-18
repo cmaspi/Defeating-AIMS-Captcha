@@ -19,4 +19,4 @@ kaggle datasets download -d cmaspi/character
 ```
 
 ## SHOWDOWN
-
+Now, we are down to just writing a CNN model to fit our data. 
