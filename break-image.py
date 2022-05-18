@@ -15,23 +15,35 @@ def sep_image(img : np.ndarray, name : str):
     img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     
     # Removing all the noisy information from the captcha images
+    # 220 is the threshold that we use, any pixel with lower intensity
+    # is set to 0 (black)
+    # anything higher is set to 255 (white)
     img[img < 220] = 0
     img[img >= 220] = 255
 
+
     # Finding Contours
+    # contours are basically the separate blobs of pixels
     contours, _ = cv.findContours(img, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+    # sorting the contours in left to right order
     contours = sorted(contours, key = lambda x: x[0][0][0])
 
+    # count of how many characters we have accounted for
     j = 0
 
+    # the number of countours can be more than 5 or even less than 5
+    # If we have the letter j, the dot on top counts as a separate blob.
+    # Sometimes we can have 2 letters joined and that would be a single blob
     for i in range(contours.__len__()):
         if j >= 5:
             break
-
-        ct = ord(name[j])
+        
+        # the left top point is x,y. w,h are the dimensions of 
+        # rectangle surrounding this contour
         x, y, w, h = cv.boundingRect(contours[i])
+
         if h < 10 and w < 10:
-            # Case when the dot over i is a separate contour
+            # Case when the dot over j is a separate contour
             continue
         
         # When two characters are joint and are considered as same contour
