@@ -20,3 +20,5 @@ kaggle datasets download -d cmaspi/character
 
 ## SHOWDOWN
 Now, we are down to just writing a CNN model to fit our data. 
+
+We load the dataset we prepared in the previous step, convert numpy array to tensorflow tensor. Change the appropriate dtypes. And just fit a cnn. 
